@@ -1,0 +1,20 @@
+==== Metadata Attributes
+
+The plugin exposes several metadata attributes about the object being read.
+You can access these later in the pipeline to augment the data or perform conditional logic.
+
+[cols="<,<,<",options="header",]
+|=======================================================================
+| Key | Type | Description
+| `[@metadata][gcs][bucket]` | `string` | The name of the bucket the file was read from.
+| `[@metadata][gcs][name]` | `string` | The name of the object.
+| `[@metadata][gcs][metadata]` | `object` | A map of metadata on the object.
+| `[@metadata][gcs][md5]` | `string` | MD5 hash of the data. Encoded using base64.
+| `[@metadata][gcs][crc32c]` | `string` | CRC32c checksum, as described in RFC 4960. Encoded using base64 in big-endian byte order.
+| `[@metadata][gcs][generation]` | `long` | The content generation of the object. Used for object versioning
+| `[@metadata][gcs][line]` | `long` | The position of the event in the file. 1 indexed.
+| `[@metadata][gcs][line_id]` | `string` | A deterministic, unique ID describing this line. This lets you do idempotent inserts into Elasticsearch.
+|=======================================================================
+
+More information about object metadata can be found in the
+https://cloud.google.com/storage/docs/json_api/v1/objects[official documentation].

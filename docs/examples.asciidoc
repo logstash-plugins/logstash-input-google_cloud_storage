@@ -1,0 +1,84 @@
+==== Example Configurations
+
+===== Basic
+
+Basic configuration to read JSON logs every minute from `my-logs-bucket`.
+For example, https://cloud.google.com/stackdriver/[Stackdriver logs].
+
+[source,ruby]
+----------------------------------
+input {
+  google_cloud_storage {
+    interval => 60
+    bucket_id => "my-logs-bucket"
+    json_key_file => "/home/user/key.json"
+    file_matches => ".*json"
+    codec => "json_lines"
+  }
+}
+output { stdout { codec => rubydebug } }
+----------------------------------
+
+===== Idempotent Inserts into Elasticsearch
+
+If your pipeline might insert the same file multiple times you can use the `line_id` metadata key as a deterministic id.
+
+The ID has the format: `gs://<bucket_id>/<object_id>:<line_num>@<generation>`.
+`line_num` represents the nth event deserialized from the file starting at 1.
+`generation` is a unique id Cloud Storage generates for the object.
+When an object is overwritten it gets a new generation.
+
+[source,ruby]
+----------------------------------
+input {
+  google_cloud_storage {
+    bucket_id => "batch-jobs-output"
+  }
+}
+
+output {
+  elasticsearch {
+    document_id => "%{[@metadata][gcs][line_id]}"
+  }
+}
+----------------------------------
+
+===== From Cloud Storage to BigQuery
+
+
+Extract data from Cloud Storage, transform it with Logstash and load it into BigQuery.
+
+
+[source,ruby]
+----------------------------------
+input {
+  google_cloud_storage {
+    interval => 60
+    bucket_id => "batch-jobs-output"
+    file_matches => "purchases.*.csv"
+    json_key_file => "/home/user/key.json"
+    codec => "plain"
+  }
+}
+
+filter {
+  csv {
+    columns => ["transaction", "sku", "price"]
+    convert => {
+      "transaction" => "integer"
+      "price" => "float"
+    }
+  }
+}
+
+output {
+  google_bigquery {
+    project_id => "my-project"
+    dataset => "logs"
+    csv_schema => "transaction:INTEGER,sku:INTEGER,price:FLOAT"
+    json_key_file => "/path/to/key.json"
+    error_directory => "/tmp/bigquery-errors"
+    ignore_unknown_values => true
+  }
+}
+----------------------------------

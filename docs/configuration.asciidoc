@@ -1,0 +1,112 @@
+[id="plugins-{type}s-{plugin}-options"]
+==== Google Cloud Storage Input Configuration Options
+
+This plugin supports the following configuration options plus the <<plugins-{type}s-{plugin}-common-options>> described later.
+
+[cols="<,<,<",options="header",]
+|=======================================================================
+|Setting |Input type|Required
+| <<plugins-{type}s-{plugin}-bucket_id>> |<<string,string>>|Yes
+| <<plugins-{type}s-{plugin}-json_key_file>> |<<path,path>>|No
+| <<plugins-{type}s-{plugin}-interval>> |<<number,number>>|No
+| <<plugins-{type}s-{plugin}-file_matches>> |<<string,string>>|No
+| <<plugins-{type}s-{plugin}-file_exclude>> |<<string,string>>|No
+| <<plugins-{type}s-{plugin}-metadata_key>> |<<string,string>>|No
+| <<plugins-{type}s-{plugin}-processed_db_path>> |<<path,path>>|No
+| <<plugins-{type}s-{plugin}-delete>> |<<boolean,boolean>>|No
+| <<plugins-{type}s-{plugin}-unpack_gzip>> |<<boolean,boolean>>|No
+|=======================================================================
+
+Also see <<plugins-{type}s-{plugin}-common-options>> for a list of options supported by all
+input plugins.
+
+
+[id="plugins-{type}s-{plugin}-bucket_id"]
+===== `bucket_id`
+
+  * Value type is <<string,string>>
+  * There is no default value for this setting.
+
+The bucket containing your log files.
+
+[id="plugins-{type}s-{plugin}-json_key_file"]
+===== `json_key_file`
+
+  * Value type is <<path,path>>
+  * There is no default value for this setting.
+
+The path to the key to authenticate your user to the bucket.
+This service user _should_ have the `storage.objects.update` permission so it can
+create metadata on the object preventing it from being scanned multiple times.
+
+[id="plugins-{type}s-{plugin}-interval"]
+===== `interval`
+
+  * Value type is <<number,number>>
+  * Default is: `60`
+
+The number of seconds between looking for new files in your bucket.
+
+[id="plugins-{type}s-{plugin}-file_matches"]
+===== `file_matches`
+
+  * Value type is <<string,string>>
+  * Default is: `.*\.log(\.gz)?`
+
+A regex pattern to filter files. Only files with names matching this will be considered.
+All files match by default.
+
+[id="plugins-{type}s-{plugin}-file_exclude"]
+===== `file_exclude`
+
+  * Value type is <<string,string>>
+  * Default is: `^$`
+
+Any files matching this regex are excluded from processing.
+No files are excluded by default.
+
+[id="plugins-{type}s-{plugin}-metadata_key"]
+===== `metadata_key`
+
+  * Value type is <<string,string>>
+  * Default is: `x-goog-meta-ls-gcs-input`
+
+This key will be set on the objects after they've been processed by the plugin. That way you can
+stop the plugin and not upload files again or prevent them from being uploaded by setting the
+field manually.
+
+NOTE: the key is a flag, if a file was partially processed before Logstash exited some events will be resent.
+
+[id="plugins-{type}s-{plugin}-processed_db_path"]
+===== `processed_db_path`
+
+  * Value type is <<path,path>>
+  * Default is: `LOGSTASH_DATA/plugins/inputs/google_cloud_storage/db`.
+
+If set, the plugin will store the list of processed files locally.
+This allows you to create a service account for the plugin that does not have write permissions.
+However, the data will not be shared across multiple running instances of Logstash.
+
+[id="plugins-{type}s-{plugin}-delete"]
+===== `delete`
+
+  * Value type is <<boolean,boolean>>
+  * Default is: `false`
+
+Should the log file be deleted after its contents have been updated?
+
+[id="plugins-{type}s-{plugin}-unpack_gzip"]
+===== `unpack_gzip`
+
+  * Value type is <<boolean,boolean>>
+  * Default is: `true`
+
+If set to `true`, files ending in `.gz` are decompressed before they're parsed by the codec.
+The file will be skipped if it has the suffix, but can't be opened as a gzip, e.g.
+if it has a bad magic number.
+
+
+[id="plugins-{type}s-{plugin}-common-options"]
+include::{include_path}/{type}.asciidoc[]
+
+:default_codec!:
