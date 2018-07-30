@@ -8,7 +8,7 @@ require 'logstash/inputs/cloud_storage/processed_db'
 require 'logstash/inputs/cloud_storage/blob_filter'
 require 'logstash/inputs/cloud_storage/file_reader'
 
-# GoogleCloudStorage is an input plugin for LogStash that
+# GoogleCloudStorage is an input plugin for Logstash that
 # reads blobs in Cloud Storage buckets.
 class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
   config_name 'google_cloud_storage'
