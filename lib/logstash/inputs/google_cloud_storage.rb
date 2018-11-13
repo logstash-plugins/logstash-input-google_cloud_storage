@@ -17,7 +17,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
 
   # Connection Settings
   config :bucket_id, :validate => :string, :required => true
-  config :json_key_file, :validate => :string, :default => nil
+  config :json_key_file, :validate => :string, :default => ''
   config :interval, :validate => :number, :default => 60
 
   # Inclusion/Exclusion Criteria
