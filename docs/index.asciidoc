@@ -19,7 +19,7 @@ END - GENERATED VARIABLES, DO NOT EDIT!
 
 include::{include_path}/plugin_header.asciidoc[]
 
-
+[id="plugins-{type}s-{plugin}-description"]
 ==== Description
 
 Extracts events from files in a Google Cloud Storage bucket.
@@ -33,7 +33,7 @@ Example use-cases:
 
 Note: While this project is partially maintained by Google, this is not an official Google product.
 
-
+[id="plugins-{type}s-{plugin}-metadata-attributes"]
 ==== Metadata Attributes
 
 The plugin exposes several metadata attributes about the object being read.
@@ -55,7 +55,7 @@ You can access these later in the pipeline to augment the data or perform condit
 More information about object metadata can be found in the
 https://cloud.google.com/storage/docs/json_api/v1/objects[official documentation].
 
-
+[id="plugins-{type}s-{plugin}-example-configurations"]
 ==== Example Configurations
 
 ===== Basic
@@ -103,9 +103,7 @@ output {
 
 ===== From Cloud Storage to BigQuery
 
-
 Extract data from Cloud Storage, transform it with Logstash and load it into BigQuery.
-
 
 [source,ruby]
 ----------------------------------
@@ -141,7 +139,7 @@ output {
 }
 ----------------------------------
 
-
+[id="plugins-{type}s-{plugin}-additional-resources"]
 ==== Additional Resources
 
  * https://cloud.google.com/storage/[Cloud Storage Homepage]
