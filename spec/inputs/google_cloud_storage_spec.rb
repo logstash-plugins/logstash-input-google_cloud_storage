@@ -69,7 +69,7 @@ describe LogStash::Inputs::GoogleCloudStorage do
       events = subject.event_output_queue
 
       messages = events.map { |e| e.get('message') }
-      expect(messages).to eq(['match.log1', 'match.log2'])
+      expect(messages).to eq(["match.log1\r\n", "match.log2"])
 
       filenames = events.map { |e| e.get('[@metadata][gcs][name]') }
       expect(filenames).to eq(['match.log', 'match.log'])

@@ -28,7 +28,7 @@ module LogStash
         def self.read_plain_lines(filename, &block)
           line_num = 1
           ::File.open(filename).each do |line|
-            block.call(line.chomp, line_num)
+            block.call(line, line_num)
             line_num += 1
           end
         end
@@ -36,7 +36,7 @@ module LogStash
         def self.read_gzip_lines(filename, &block)
           line_num = 1
           Zlib::GzipReader.open(filename).each_line do |line|
-            block.call(line.chomp, line_num)
+            block.call(line, line_num)
             line_num += 1
           end
         end

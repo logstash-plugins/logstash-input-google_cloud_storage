@@ -34,7 +34,7 @@ describe LogStash::Inputs::CloudStorage::FileReader do
     let(:path) { ::File.join('spec', 'fixtures', 'helloworld.log') }
 
     it 'reads plain files' do
-      expected = [['hello', 1], ['world', 2]]
+      expected = [["hello\n", 1], ["world\n", 2]]
 
       out = []
       LogStash::Inputs::CloudStorage::FileReader.read_plain_lines(path) do |text, linenum|
@@ -49,7 +49,7 @@ describe LogStash::Inputs::CloudStorage::FileReader do
     let(:path) { ::File.join('spec', 'fixtures', 'helloworld.log.gz') }
 
     it 'reads gzipped files' do
-      expected = [['hello', 1], ['world', 2]]
+      expected = [["hello\n", 1], ["world\n", 2]]
 
       out = []
       LogStash::Inputs::CloudStorage::FileReader.read_gzip_lines(path) do |text, linenum|
