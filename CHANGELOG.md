@@ -1,3 +1,8 @@
+## 0.10.0
+
+- Updated JAR dependencies.
+- Changed the way lines were being read to not strip the included line endings.
+
 ## 0.9.0
 
 - Initial release
