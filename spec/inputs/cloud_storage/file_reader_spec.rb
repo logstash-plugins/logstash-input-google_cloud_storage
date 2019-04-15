@@ -8,19 +8,19 @@ describe LogStash::Inputs::CloudStorage::FileReader do
   describe '#gzip?' do
     GzipTest = Struct.new('GzipTest', :path, :expected)
 
-    it 'is true when the file ends with .gz' do
+    it 'is true when the file has .gz mimetype' do
       cases = [
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.gz'), true),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.gz'), true),
         GzipTest.new(::File.join(::Dir.pwd, 'spec', 'fixtures', 'gzip', 'simple.gz'), true),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.log.gz'), true),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.gzip'), true),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simplegz'), true),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.tgz'), true),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.log.gz'), true),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.gzip'), true),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simplegz'), true),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.tgz'), true),
 
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.log'), false),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simpledir.gz/log'), false),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.gz.log'), false),
-        GzipTest.new(::File.join('spec', 'fixtures', 'gzip', 'simple.log'), false),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.log'), false),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simpledir.gz/log'), false),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.gz.log'), false),
+        GzipTest.new(::File.join('.', 'spec', 'fixtures', 'gzip', 'simple.log'), false),
       ]
 
       cases.each do |test|
