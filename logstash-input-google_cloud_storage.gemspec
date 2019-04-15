@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'logstash-input-google_cloud_storage'
-  s.version       = '0.10.0'
+  s.version       = '0.11.0'
   s.licenses      = ['Apache-2.0']
   s.summary       = 'Plugin to import log data from Google Cloud Storage (GCS).'
   s.description   = 'This gem is a Logstash plugin required to be installed on top of the '\
@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'logstash-codec-plain'
   s.add_runtime_dependency 'logstash-core-plugin-api', '~> 2.0'
   s.add_runtime_dependency 'stud', '>= 0.0.22'
+  s.add_runtime_dependency 'mimemagic', '>= 0.3.3'
 
   s.add_development_dependency 'logstash-devutils', '>= 0.0.16'
 
