@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'logstash-codec-plain'
   s.add_runtime_dependency 'logstash-core-plugin-api', '~> 2.0'
   s.add_runtime_dependency 'stud', '>= 0.0.22'
+  s.add_runtime_dependency 'mimemagic', '>= 0.3.3'
 
   s.add_development_dependency 'logstash-devutils', '>= 0.0.16'
 

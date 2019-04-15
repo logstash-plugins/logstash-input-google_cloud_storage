@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'zlib'
+require 'mimemagic'
 
 module LogStash
   module Inputs
@@ -22,7 +23,8 @@ module LogStash
 
         # gzip? returns true if the given filename has a gzip file extension.
         def self.gzip?(filename)
-          filename.end_with? '.gz'
+          magic = MimeMagic.by_magic(::File.open(filename))
+          magic ? magic.subtype == "gzip" : false
         end
 
         def self.read_plain_lines(filename, &block)
