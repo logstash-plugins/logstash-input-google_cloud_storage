@@ -45,6 +45,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'logstash-devutils', '>= 0.0.16'
 
   # Java
-  s.add_development_dependency 'jar-dependencies', '~> 0.3.4'
+  s.add_development_dependency 'jar-dependencies', '~> 0.4.0'
   s.platform = 'java'
 end

@@ -21,16 +21,17 @@ module LogStash
 
         java_import 'com.google.cloud.storage.Storage'
         def list_blobs
-          # NOTE: there is the option to filter which fields are returned by
-          # the call. If we find the bandwidth overhead is too much it would be
-          # possible (but tedious) to filter the returned fields to just those
-          # that this plugin uses.
-          filter = []
+          # NOTE: calls to list have to be done in this way because the client
+          # library overloads the function twice with different varadic types
+          # for two separate functions and JRuby doesn't have enough type
+          # information to make a distinction.
           if @blob_prefix != ''
-            filter = [Storage::BlobListOption.prefix(@blob_prefix)]
+            lister = @storage.list(@bucket, Storage::BlobListOption.prefix(@blob_prefix))
+          else
+            lister = @storage.list(@bucket)
           end
 
-          @storage.list(@bucket, filter.to_java).iterateAll().each do |blobname|
+          lister.iterateAll().each do |blobname|
             yield LogStash::Inputs::CloudStorage::BlobAdapter.new(blobname)
           end
         rescue Java::ComGoogleCloudStorage::StorageException => e
