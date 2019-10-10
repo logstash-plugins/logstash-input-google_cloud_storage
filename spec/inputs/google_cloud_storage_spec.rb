@@ -22,7 +22,8 @@ describe LogStash::Inputs::GoogleCloudStorage do
         'processed_db_path' => processed_db_dir,
         'temp_directory' => download_dir,
         'delete' => true,
-        'unpack_gzip' => false
+        'unpack_gzip' => false,
+        'file_prefix' => '/some/prefix/here'
     }
   }
 

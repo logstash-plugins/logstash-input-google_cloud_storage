@@ -10,16 +10,27 @@ module LogStash
     module CloudStorage
       # Client provides all the required transport and authentication setup for the plugin.
       class Client
-        def initialize(bucket, json_key_path, logger)
+        def initialize(bucket, json_key_path, logger, blob_prefix='')
           @logger = logger
           @bucket = bucket
+          @blob_prefix = blob_prefix
 
           # create client
           @storage = initialize_storage json_key_path
         end
 
+        java_import 'com.google.cloud.storage.Storage'
         def list_blobs
-          @storage.list(@bucket).iterateAll().each do |blobname|
+          # NOTE: there is the option to filter which fields are returned by
+          # the call. If we find the bandwidth overhead is too much it would be
+          # possible (but tedious) to filter the returned fields to just those
+          # that this plugin uses.
+          filter = []
+          if @blob_prefix != ''
+            filter = [Storage::BlobListOption.prefix(@blob_prefix)]
+          end
+
+          @storage.list(@bucket, filter.to_java).iterateAll().each do |blobname|
             yield LogStash::Inputs::CloudStorage::BlobAdapter.new(blobname)
           end
         rescue Java::ComGoogleCloudStorage::StorageException => e

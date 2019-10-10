@@ -160,6 +160,7 @@ This plugin supports the following configuration options plus the <<plugins-{typ
 | <<plugins-{type}s-{plugin}-json_key_file>> |<<path,path>>|No
 | <<plugins-{type}s-{plugin}-interval>> |<<number,number>>|No
 | <<plugins-{type}s-{plugin}-file_matches>> |<<string,string>>|No
+| <<plugins-{type}s-{plugin}-file_prefix>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-file_exclude>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-metadata_key>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-processed_db_path>> |<<path,path>>|No
@@ -205,6 +206,18 @@ The number of seconds between looking for new files in your bucket.
 
 A regex pattern to filter files. Only files with names matching this will be considered.
 All files match by default.
+
+[id="plugins-{type}s-{plugin}-file_prefix"]
+===== `file_prefix`
+
+added[0.12.0]
+
+  * Value type is <<string,string>>
+  * Default is: ``
+
+A prefix filter applied server-side. Only files starting with this prefix will
+be fetched from Cloud Storage. This can be useful if all the files you want to
+process are in a particular folder and want to reduce network traffic.
 
 [id="plugins-{type}s-{plugin}-file_exclude"]
 ===== `file_exclude`
