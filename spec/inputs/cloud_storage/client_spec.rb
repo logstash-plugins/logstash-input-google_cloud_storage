@@ -13,7 +13,7 @@ describe LogStash::Inputs::CloudStorage::Client do
 
     it 'does not throw an error when initializing' do
       key_file = ::File.join('spec', 'fixtures', 'credentials.json')
-      LogStash::Inputs::CloudStorage::Client.new('my-bucket', key_file, logger)
+      LogStash::Inputs::CloudStorage::Client.new('my-bucket', key_file, logger, 'prefix')
     end
   end
 end

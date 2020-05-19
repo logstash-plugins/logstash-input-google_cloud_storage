@@ -1,3 +1,7 @@
+## 0.12.0
+
+- Added support for `file_prefix` option for server-side filtering
+
 ## 0.11.0
 
 - Change gzip file detection to use mime type instead of extension
@@ -10,7 +14,7 @@
 ## 0.9.0
 
 - Initial release
-- File inclusion/exclusion by 
+- File inclusion/exclusion by
   - regex
   - processed database
   - metadata key

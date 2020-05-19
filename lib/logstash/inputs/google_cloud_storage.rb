@@ -21,6 +21,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
   config :interval, :validate => :number, :default => 60
 
   # Inclusion/Exclusion Criteria
+  config :file_prefix, :validate => :string, :default => ''
   config :file_matches, :validate => :string, :default => '.*\\.log(\\.gz)?'
   config :file_exclude, :validate => :string, :default => '^$'
   config :metadata_key, :validate => :string, :default => 'x-goog-meta-ls-gcs-input'
@@ -39,7 +40,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
   def register
     FileUtils.mkdir_p(@temp_directory) unless Dir.exist?(@temp_directory)
 
-    @client = LogStash::Inputs::CloudStorage::Client.new(@bucket_id, @json_key_file, @logger)
+    @client = LogStash::Inputs::CloudStorage::Client.new(@bucket_id, @json_key_file, @logger, @file_prefix)
 
     if @processed_db_path.nil?
       ls_data = LogStash::SETTINGS.get_value('path.data')
