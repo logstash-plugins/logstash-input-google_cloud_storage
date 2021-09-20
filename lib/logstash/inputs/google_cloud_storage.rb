@@ -17,6 +17,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
 
   # Connection Settings
   config :bucket_id, :validate => :string, :required => true
+  config :bucket_prefix, :validate => :string, :default => ''
   config :json_key_file, :validate => :string, :default => ''
   config :interval, :validate => :number, :default => 60
 
@@ -39,7 +40,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
   def register
     FileUtils.mkdir_p(@temp_directory) unless Dir.exist?(@temp_directory)
 
-    @client = LogStash::Inputs::CloudStorage::Client.new(@bucket_id, @json_key_file, @logger)
+    @client = LogStash::Inputs::CloudStorage::Client.new(@bucket_id, @bucket_prefix, @json_key_file, @logger)
 
     if @processed_db_path.nil?
       ls_data = LogStash::SETTINGS.get_value('path.data')
@@ -81,7 +82,7 @@ class LogStash::Inputs::GoogleCloudStorage < LogStash::Inputs::Base
 
   # list_processable_blobs will list blobs in the bucket and yield them if they are not filtered
   def list_processable_blobs
-    @logger.info("Fetching blobs from #{@bucket_id}")
+    @logger.info("Fetching blobs from #{@bucket_id}/#{@bucket_prefix}")
     @client.list_blobs do |blob|
       yield blob if @blob_filter.should_process?(blob)
     end
