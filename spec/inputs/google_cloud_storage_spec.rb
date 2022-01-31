@@ -16,6 +16,7 @@ describe LogStash::Inputs::GoogleCloudStorage do
     {
         'bucket_id' => 'test-bucket-id',
         'json_key_file' => ::File.join('spec', 'fixtures', 'credentials.json'),
+        'blob_prefix' => 'test-prefix',
         'file_matches' => '.*log',
         'file_exclude' => 'bak-.*',
         'metadata_key' => 'test-metadata',
