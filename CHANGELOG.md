@@ -1,3 +1,7 @@
+## 0.12.0
+
+- Add blob prefix support
+
 ## 0.11.0
 
 - Change gzip file detection to use mime type instead of extension

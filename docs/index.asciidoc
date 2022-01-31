@@ -159,6 +159,7 @@ This plugin supports the following configuration options plus the <<plugins-{typ
 | <<plugins-{type}s-{plugin}-bucket_id>> |<<string,string>>|Yes
 | <<plugins-{type}s-{plugin}-json_key_file>> |<<path,path>>|No
 | <<plugins-{type}s-{plugin}-interval>> |<<number,number>>|No
+| <<plugins-{type}s-{plugin}-blob_prefix>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-file_matches>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-file_exclude>> |<<string,string>>|No
 | <<plugins-{type}s-{plugin}-metadata_key>> |<<string,string>>|No
@@ -196,6 +197,14 @@ create metadata on the object preventing it from being scanned multiple times.
   * Default is: `60`
 
 The number of seconds between looking for new files in your bucket.
+
+[id="plugins-{type}s-{plugin}-blob_prefix"]
+===== `prefix`
+
+  * Value type is <<string,string>>
+  * Default is: ``
+
+ Filter results to files whose names begin with this prefix
 
 [id="plugins-{type}s-{plugin}-file_matches"]
 ===== `file_matches`
