@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
       'CONTRIBUTORS',
       'LICENSE',
       'NOTICE.TXT',
-      'VERSION',
+      'version',
       'docs/**/*']
 
   # Tests
