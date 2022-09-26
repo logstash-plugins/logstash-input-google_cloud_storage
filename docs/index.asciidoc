@@ -33,6 +33,23 @@ Example use-cases:
 
 Note: While this project is partially maintained by Google, this is not an official Google product.
 
+.Installation Note
+[NOTE]
+================================================================================
+When installing this plugin you could receive an error message about the
+impossibility to find compatible versions for gem "mimemagic".
+This is error could be circumvented by installing the required dependency directly into
+the Logstash Ruby gem's cache.
+
+This could be done going into Logstash installation folder and using the bundled Ruby gems instance:
+
+[source,bash]
+----------------------------------
+bin/ruby -S gem install mimemagic -v '>= 0.3.7'
+----------------------------------
+
+================================================================================
+
 [id="plugins-{type}s-{plugin}-metadata-attributes"]
 ==== Metadata Attributes
 
