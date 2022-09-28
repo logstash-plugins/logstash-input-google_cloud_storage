@@ -36,20 +36,27 @@ Note: While this project is partially maintained by Google, this is not an offic
 .Installation Note
 [NOTE]
 ================================================================================
-When installing this plugin you could receive an error message about the
-impossibility to find compatible versions for gem "mimemagic".
-This is error could be circumvented by installing the required dependency directly into
-the Logstash Ruby gem's cache and then proceed with the usual installation of the plugin with
-the `logstash-plugin` install tool
+Attempting to install this plugin may result in an error about bundler could not find compatible versions for gem "mimemagic".
+[source,bash]
+----------------------------------
+Bundler::VersionConflict: Bundler could not find compatible versions for gem "mimemagic":
+  In Gemfile:
+    logstash-input-google_cloud_storage (= 0.11.0) was resolved to 0.11.0, which depends on
+      mimemagic (>= 0.3.7)
 
-This could be done going into Logstash installation folder and using the bundled Ruby gems instance:
+Could not find gem 'mimemagic (>= 0.3.7)', which is required by gem 'logstash-input-google_cloud_storage (= 0.11.0)', in any of the sources or in gems cached in vendor/cache
+----------------------------------
+If this error occurs, you can fix it by manually installing the "mimemagic" dependency directly into the
+Logstash's internal Ruby Gems cache, which is present at `vendor/bundle/jruby/<ruby_version>/gems/`. This could be done using
+the bundled Ruby gem'ss instance inside the Logstash's installation `bin/` folder.
 
+To manually install the "mimemagic" gem into Logstash use:
 [source,bash]
 ----------------------------------
 bin/ruby -S gem install mimemagic -v '>= 0.3.7'
 ----------------------------------
 
-Then use the plugin installation tool:
+Then install the plugin as usual with:
 [source,bash]
 ----------------------------------
 bin/logstash-plugin install logstash-input-google_cloud_storage
