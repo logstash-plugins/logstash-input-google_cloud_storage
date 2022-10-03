@@ -36,7 +36,7 @@ Note: While this project is partially maintained by Google, this is not an offic
 .Installation Note
 [NOTE]
 ================================================================================
-Attempting to install this plugin may result in an error about bundler could not find compatible versions for gem "mimemagic".
+Attempting to install this plugin may result in an error:
 [source,bash]
 ----------------------------------
 Bundler::VersionConflict: Bundler could not find compatible versions for gem "mimemagic":
@@ -48,7 +48,7 @@ Could not find gem 'mimemagic (>= 0.3.7)', which is required by gem 'logstash-in
 ----------------------------------
 If this error occurs, you can fix it by manually installing the "mimemagic" dependency directly into the
 Logstash's internal Ruby Gems cache, which is present at `vendor/bundle/jruby/<ruby_version>/gems/`. This could be done using
-the bundled Ruby gem'ss instance inside the Logstash's installation `bin/` folder.
+the bundled Ruby gem's instance inside the Logstash's installation `bin/` folder.
 
 To manually install the "mimemagic" gem into Logstash use:
 [source,bash]
