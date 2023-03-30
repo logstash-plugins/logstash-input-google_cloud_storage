@@ -26,18 +26,28 @@ Need help? Try #logstash on freenode IRC or the https://discuss.elastic.co/c/log
 
 ## Developing
 
-### 1. Plugin Developement and Testing
+### 1. Plugin Development and Testing
 
 #### Code
+
 - To get started, you'll need JRuby with the Bundler gem installed.
+- You'll also need a Logstash installation to build the plugin against.
 
 - Create a new plugin or clone and existing from the GitHub [logstash-plugins](https://github.com/logstash-plugins) organization. We also provide [example plugins](https://github.com/logstash-plugins?query=example).
+- `export LOGSTASH_SOURCE=1` and point `LOGSTASH_PATH` to a local Logstash
+  e.g. `export LOGSTASH_PATH=/opt/local/logstash-8.7.0`
 
-- Install dependencies
+- Install Ruby dependencies
 ```sh
 bundle install
-bundle exec rake vendor
 ```
+
+- Install Java dependencies - regenerates the *lib/logstash-input-google_cloud_storage_jars.rb*
+  script used to load the .jar dependencies when the plugin starts.
+```sh
+./gradlew vendor
+```
+  NOTE: This step is necessary whenever **build.gradle** is updated.
 
 #### Test
 
@@ -47,7 +57,7 @@ bundle exec rake vendor
 bundle install
 ```
 
-- Run tests
+- Run Ruby tests
 
 ```sh
 bundle exec rspec
