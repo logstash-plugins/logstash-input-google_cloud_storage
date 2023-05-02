@@ -27,23 +27,40 @@ module LogStash
         end
 
         private
-
+        
+        
         def initialize_storage(json_key_path)
-          com.google.cloud.storage.StorageOptions.newBuilder()
-             .setCredentials(credentials(json_key_path))
-             .setHeaderProvider(http_headers)
-             .setRetrySettings(retry_settings)
-             .build()
-             .getService()
+          builder = setup_builder_from_credentials(json_key_path)
+          builder.setHeaderProvider(http_headers)
+              .setRetrySettings(retry_settings)
+              .build()
+              .getService()
         end
-
+        
         java_import 'com.google.auth.oauth2.GoogleCredentials'
-        def credentials(json_key_path)
-          return GoogleCredentials.getApplicationDefault() if json_key_path.empty?
+        def setup_builder_from_credentials(json_key_path)
+          # initialize the StorageOptions builder
+          builder = com.google.cloud.storage.StorageOptions.newBuilder()
 
-          key_file = java.io.FileInputStream.new(json_key_path)
-          GoogleCredentials.fromStream(key_file)
+          # initialize it normally if a json_key_path is provided
+          if !json_key_path.empty?
+            key_file = java.io.FileInputStream.new(json_key_path)
+            builder.setCredentials(GoogleCredentials.fromStream(key_file))
+          else
+            # if a json_key_path is not provided, try using the getApplicationDefault, normally 
+            # using GOOGLE_APPLICATION_CREDENTIALS env variable 
+            begin
+              builder.setCredentials(GoogleCredentials.getApplicationDefault())
+            rescue Java::JavaIo::IOException => e
+              # an IOException is generated if no default credentials exist, trying unauthenticated
+              builder = com.google.cloud.storage.StorageOptions.getUnauthenticatedInstance()
+              .toBuilder()
+            end
+          end
+          return builder
         end
+
+        
 
         java_import 'com.google.api.gax.rpc.FixedHeaderProvider'
         def http_headers
