@@ -30,7 +30,6 @@ module LogStash
         
         
         def initialize_storage(json_key_path)
-          
           builder = setup_builder_from_credentials(json_key_path)
           builder.setHeaderProvider(http_headers)
               .setRetrySettings(retry_settings)
