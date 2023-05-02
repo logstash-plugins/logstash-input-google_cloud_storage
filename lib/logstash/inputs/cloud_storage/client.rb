@@ -28,8 +28,18 @@ module LogStash
 
         private
         
-        java_import 'com.google.auth.oauth2.GoogleCredentials'
+        
         def initialize_storage(json_key_path)
+          
+          builder = setup_builder_from_credentials(json_key_path)
+          builder.setHeaderProvider(http_headers)
+              .setRetrySettings(retry_settings)
+              .build()
+              .getService()
+        end
+        
+        java_import 'com.google.auth.oauth2.GoogleCredentials'
+        def setup_builder_from_credentials(json_key_path)
           # initialize the StorageOptions builder
           builder = com.google.cloud.storage.StorageOptions.newBuilder()
 
@@ -48,11 +58,10 @@ module LogStash
               .toBuilder()
             end
           end
-          builder.setHeaderProvider(http_headers)
-              .setRetrySettings(retry_settings)
-              .build()
-              .getService()
+          return builder
         end
+
+        
 
         java_import 'com.google.api.gax.rpc.FixedHeaderProvider'
         def http_headers
