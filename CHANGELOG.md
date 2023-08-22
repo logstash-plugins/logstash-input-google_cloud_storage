@@ -1,3 +1,6 @@
+## 0.15.0
+ - Updated Google Cloud Storage client library, from `2.12.0` to `2.26.1` [#25](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/pull/25)
+
 ## 0.14.0
  - Feature, update so that unauthenticated client can access public buckets [#24](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/pull/24)
 
