@@ -4,3 +4,4 @@ Gemfile.lock
 vendor
 .idea
 *.iml
+lib/logstash-input-google_cloud_storage_jars.rb
