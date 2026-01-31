@@ -1,7 +1,5 @@
 ## 0.15.1
-  - Re-packaging the plugin [#31](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/pull/31)
-
-## Unreleased
+ - Re-packaging the plugin [#31](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/pull/31)
  - Removed `jar-dependencies` dependency [#29](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/pull/29)
 
 ## 0.15.0
