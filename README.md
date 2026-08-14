@@ -1,3 +1,5 @@
+[![Unit Tests](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/actions/workflows/unit-tests.yml/badge.svg?branch=main)](https://github.com/logstash-plugins/logstash-input-google_cloud_storage/actions/workflows/unit-tests.yml)
+
 # Logstash Input Google Cloud Storage
 
 Extracts events from files in a Google Cloud Storage bucket.
